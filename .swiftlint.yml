@@ -1,0 +1,35 @@
+disabled_rules:
+  - trailing_whitespace
+
+opt_in_rules:
+  - closure_end_indentation
+  - convenience_type
+  - discouraged_assert
+  - discouraged_optional_boolean
+  - discouraged_optional_collection
+  - empty_collection_literal
+  - empty_count
+  - explicit_init
+  - fallthrough
+  - file_name
+  - first_where
+  - for_where
+  - force_cast
+  - force_try
+  - force_unwrapping
+  - identifier_name
+  - modifier_order
+  - multiline_arguments
+  - no_magic_numbers
+  - operator_usage_whitespace
+  - overridden_super_call
+  - prefer_asset_symbols
+  - redundant_self_in_closure
+  - sorted_imports
+  - strict_fileprivate
+  - unneeded_break_in_switch
+  - unneeded_parentheses_in_closure_argument
+
+analyzer_rules:
+  - unused_import
+  - explicit_self
