@@ -1,25 +1,27 @@
-internal import Combine
 import Foundation
 import SwiftUI
 
 actor PathService {
-    let heroPathPublisher = PassthroughSubject<Void, Never>()
+    var heroPathValues: AsyncStream<Void> { heroPathStream }
+
+    private let heroPathContinuation: AsyncStream<Void>.Continuation
+    private let heroPathStream: AsyncStream<Void>
+    private let userDefaults: UserDefaults
 
     private(set) var heroesPathURL: URL? {
         didSet {
             if let heroesPathURL {
                 userDefaults.set(heroesPathURL, forKey: Keys.heroesPath)
                 userDefaults.synchronize()
-                heroPathPublisher.send(())
+                heroPathContinuation.yield()
             }
         }
     }
 
-    private let userDefaults: UserDefaults
-
     init(userDefaults: UserDefaults) {
         self.userDefaults = userDefaults
         heroesPathURL = userDefaults.url(forKey: Keys.heroesPath)
+        (heroPathStream, heroPathContinuation) = AsyncStream.makeStream()
     }
     
     func setHeroPath(url: URL) {

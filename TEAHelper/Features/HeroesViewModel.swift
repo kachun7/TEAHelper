@@ -1,4 +1,3 @@
-@preconcurrency internal import Combine
 import SwiftUI
 
 @Observable @MainActor final class HeroesViewModel {
@@ -69,7 +68,6 @@ import SwiftUI
             heroSectionsSearchText = ""
         }
     }
-    private var pathCancellable: AnyCancellable?
 
     init(
         heroService: HeroService,
@@ -84,13 +82,10 @@ import SwiftUI
         self.pathPickerSelected = pathPickerSelected
         self.permissionSelected = permissionSelected
 
-        Task {
-            pathCancellable = await pathService
-                .heroPathPublisher
-                .debounce(for: Constants.debounceDuration, scheduler: RunLoop.main)
-                .sink { [weak self] _ in
-                    self?.refresh()
-                }
+        Task { @MainActor in
+            for await _ in await pathService.heroPathValues {
+                refresh()
+            }
         }
     }
 
@@ -168,7 +163,6 @@ private extension HeroDetails {
 }
 
 private enum Constants {
-    static let debounceDuration: RunLoop.SchedulerTimeType.Stride = 0.3
     static let randomLevel = 0
     static let randomMin = 2_000
     static let randomMax = 10_000
