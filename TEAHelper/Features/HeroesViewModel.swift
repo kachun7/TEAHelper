@@ -1,4 +1,4 @@
-internal import Combine
+@preconcurrency internal import Combine
 import SwiftUI
 
 @Observable @MainActor final class HeroesViewModel {
