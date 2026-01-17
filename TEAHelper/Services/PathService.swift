@@ -4,10 +4,6 @@ import SwiftUI
 actor PathService {
     var heroPathValues: AsyncStream<Void> { heroPathStream }
 
-    private let heroPathContinuation: AsyncStream<Void>.Continuation
-    private let heroPathStream: AsyncStream<Void>
-    private let userDefaults: UserDefaults
-
     private(set) var heroesPathURL: URL? {
         didSet {
             if let heroesPathURL {
@@ -17,6 +13,10 @@ actor PathService {
             }
         }
     }
+
+    private let heroPathContinuation: AsyncStream<Void>.Continuation
+    private let heroPathStream: AsyncStream<Void>
+    private let userDefaults: UserDefaults
 
     init(userDefaults: UserDefaults) {
         self.userDefaults = userDefaults
