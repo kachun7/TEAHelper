@@ -168,5 +168,5 @@ private enum Constants {
     static let randomMax = 5_000
     static let selectedForegroundColor = Color.selectedTextForeground
     static let selectedBackgroundColor = Color.selectedTextBackground
-    static let simulateDelay: UInt64 = 300_000_000
+    static let simulateDelay: UInt64 = 150_000_000
 }
