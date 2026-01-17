@@ -82,23 +82,24 @@ import SwiftUI
         self.pathPickerSelected = pathPickerSelected
         self.permissionSelected = permissionSelected
 
-        Task { @MainActor in
+        Task { @MainActor [weak self] in
             for await _ in await pathService.heroPathValues {
-                refresh()
+                await self?.refreshHeroSections()
             }
         }
     }
 
     func onAppear() {
-        Task {
+        Task { [weak self] in
+            guard let self else { return }
             await scriptingService.checkPermission()
             refresh()
         }
     }
 
     func refresh() {
-        Task {
-            await refreshHeroSections()
+        Task { [weak self] in
+            await self?.refreshHeroSections()
         }
     }
 
@@ -120,10 +121,11 @@ import SwiftUI
     }
 
     private func selectHeroDetails(_ heroDetails: HeroDetails) {
-        Task {
             guard self.heroDetails != heroDetails else { return }
             isHeroContentsLoading = true
             self.heroDetails = .placeHolder
+        Task { [weak self] in
+            guard let self else { return }
             try? await Task.sleep(nanoseconds: Constants.simulateDelay)
             self.heroDetails = heroDetails
             isHeroContentsLoading = false
@@ -131,7 +133,8 @@ import SwiftUI
     }
 
     func loadCode(heroDetails: HeroDetails) {
-        Task {
+        Task { [weak self] in
+            guard let self else { return }
             guard !isLoadingCode else { return }
             defer {
                 isLoadingCode = false

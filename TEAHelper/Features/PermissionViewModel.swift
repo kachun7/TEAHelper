@@ -12,7 +12,8 @@ import SwiftUI
     }
 
     func requestPermission() {
-        Task {
+        Task { [weak self] in
+            guard let self else { return }
             do {
                 try await scriptingService.requestPermission()
             } catch let error as ScriptingError {
@@ -22,7 +23,8 @@ import SwiftUI
     }
 
     func checkPermission() {
-        Task {
+        Task { [weak self] in
+            guard let self else { return }
             await scriptingService.checkPermission()
             permissionState = await scriptingService.state
         }
