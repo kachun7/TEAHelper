@@ -5,7 +5,7 @@ extension String {
         let regex = try Regex(regexPattern)
         return matches(of: regex)
             .compactMap { $0.output[1].substring }
-            .map { String($0) }
+            .map { .init($0) }
     }
 
     nonisolated func chunked(size: Int) -> [String] {
