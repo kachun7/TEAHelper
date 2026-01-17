@@ -121,9 +121,8 @@ import SwiftUI
     }
 
     private func selectHeroDetails(_ heroDetails: HeroDetails) {
-            guard self.heroDetails != heroDetails else { return }
-            isHeroContentsLoading = true
-            self.heroDetails = .placeHolder
+        guard self.heroDetails != heroDetails else { return }
+        isHeroContentsLoading = true
         Task { [weak self] in
             guard let self else { return }
             try? await Task.sleep(nanoseconds: Constants.simulateDelay)
