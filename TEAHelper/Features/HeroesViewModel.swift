@@ -153,19 +153,17 @@ import SwiftUI
 }
 
 private extension HeroDetails {
-    static var placeHolder: HeroDetails {
-        .init(
-            level: Constants.randomLevel,
-            content: String.random(length: Int.random(in: Constants.randomMin...Constants.randomMax)),
-            loadCodes: []
-        )
-    }
+    static let placeHolder = HeroDetails(
+        level: Constants.randomLevel,
+        content: String.random(length: Int.random(in: Constants.randomMin...Constants.randomMax)),
+        loadCodes: []
+    )
 }
 
 private enum Constants {
     static let randomLevel = 0
     static let randomMin = 2_000
-    static let randomMax = 10_000
+    static let randomMax = 5_000
     static let selectedForegroundColor = Color.selectedTextForeground
     static let selectedBackgroundColor = Color.selectedTextBackground
     static let simulateDelay: UInt64 = 300_000_000
