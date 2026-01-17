@@ -1,6 +1,6 @@
 import Foundation
 
-struct URLLevel {
+struct URLLevel: Sendable {
     let url: URL
     let level: Int
 
