@@ -57,7 +57,6 @@ struct HeroesView: View {
                         Text(heroDetailsContent)
                             .padding()
                             .background(heroDetails.content == viewModel.heroDetailsSearchText ? .red : .clear)
-                            .textSelection(.enabled)
                             .redacted(reason: viewModel.isHeroContentsLoading ? .placeholder : [])
                         Spacer()
                     }
