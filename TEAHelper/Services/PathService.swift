@@ -23,7 +23,11 @@ actor PathService {
         heroesPathURL = userDefaults.url(forKey: Keys.heroesPath)
         (heroPathStream, heroPathContinuation) = AsyncStream.makeStream()
     }
-    
+
+    deinit {
+        heroPathContinuation.finish()
+    }
+
     func setHeroPath(url: URL) {
         heroesPathURL = url
     }
